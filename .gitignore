@@ -1,0 +1,9 @@
+# database
+db/
+incremental_db/
+
+# compiled files
+output_files/
+
+# simulation files
+simulations/
