@@ -4,74 +4,82 @@
 module leaky_integrate_fire
 (
     clk, reset_n,
-    current, stop,
-    V_out, V_out_next, is_spike,
+    spike_in, weight, memb_potential, threshold, leak_value, tref,
+    V_out, spike_out
     );
     /*
     INPUT
     clk: clock
     reset_n: reset negated
-    current: input current
-    stop: use a current pulse if True
-    V_out_prev: previous membrane potential
+    spike_in: input spike, 8 inputs
+    weight: synaptic weight, int8, 8 inputs
+    threshold: threshold potential [mV], int8
+    leak_value: leak value [mV], uint8
+    tref: refractory period [ms], uint4
 
     OUTPUT
-    V_out: membrane potential
-    V_out_next: next membrane potential
+    V_out: membrane potential, int8
+    spike_out: output spike
     */
+
     input               clk, reset_n;
-    input       [7:0]   current;
-    input               stop;
-    input       [7:0]   V_out_prev;
-    output reg  [7:0]   V_out, V_out_next;
-    output reg          is_spike;
+    input       [7:0]   spike_in;
+    input       [63:0]  weight;
+    input       [7:0]   memb_potential;
+    input       [7:0]   threshold;
+    input       [7:0]   leak_value;
+    input       [3:0]   tref;
 
-    reg         [7:0]   tr = 0;
-    reg         [7:0]   dv = 0;
+    output      [7:0]   V_out;
+    output reg          spike_out;
 
-    /*
-    V_th: threshold potential
-    V_reset: reset potential
-    tau_m: membrane time constant
-    g_L: leak conductance
-    V_init: initial potential
-    E_L: resting potential
-    tref: refractory period
-    */
-    parameter           V_th = -55;
-    parameter           V_reset = -75;
-    parameter           tau_m = 10;
-    parameter           g_L = 10;
-    parameter           V_init = -75;
-    parameter           E_L = -75;
-    parameter           tref = 2;
-    parameter           time_scale = 1000000;
+    reg         [3:0]   tr = 0;
+    reg         [7:0]   voltage;
 
-    always @(posedge clk or posedge reset_n)
+    wire        [7:0]   I_int;  // integrate current
+    wire        [7:0]   memb_potential_int; // integrate membrane potential
+    wire        [7:0]   leak_and_int_potential; // leaked current and integrated potential
+
+    wire                gnd = 1'b0;
+
+    // integrate current
+    cla8_8 uut_cla8_8 (
+        .a(weight[7:0]&spike_in[0]), .b(weight[15:8]&spike_in[1]), .c(weight[23:16]&spike_in[2]), .d(weight[31:24]&spike_in[3]),
+        .e(weight[39:32]&spike_in[4]), .f(weight[47:40]&spike_in[5]), .g(weight[55:48]&spike_in[6]), .h(weight[63:56]&spike_in[7]),
+        .ci(1'b0), .co(gnd), .s(I_int)
+    );
+
+    // integrate membrane potential and current
+
+    // leak current
+    assign leak_and_int_potential = memb_potential_int - leak_value;
+
+    always @(posedge clk or negedge reset_n)
     begin
-        if (reset_n) begin
-            V_out <= V_init;
-            V_out_next <= V_init;
-            is_spike <= 0;
-            tr <= 0;
-            dv <= 0;
+        if (~reset_n) begin
+            voltage <= 8'b0;
+            spike_out <= 1'b0;
+            tr <= 4'b0;
         end
 
         else begin
             // check if in refractory period
             if (tr > 0) begin
-                is_spike <= 0;
-                V_out <= V_reset;
-                tr <= tr - 1;
+                spike_out <= 1'b0;
+                voltage = 8'b0;
+                tr <= tr - 4'b1;
             end
-            else if(V_out >= V_th) begin
-                is_spike <= 1;  // memb_potential >= V_th
-                V_out <= V_reset;
+            else if (leak_and_int_potential >= threshold) begin   // leak_and_int_potential >= threshold
+                spike_out <= 1'b1;  
+                voltage = 8'b0;
                 tr <= tref;     // refractory period
             end
-
-            dv <= V_out - V_out_prev;
-            V_out_next <= V_out + dv;
+            else begin
+                spike_out <= 1'b0;
+            end
         end
     end
+    
+    assign V_out = voltage;
+
 endmodule
