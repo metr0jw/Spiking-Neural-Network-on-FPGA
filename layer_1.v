@@ -19,7 +19,7 @@ module layer_1(
     leaky_integrate_fire uut_leaky_integrate_fire_layer_1_0 (
         .clk(clk), .reset_n(reset_n),
         .spike_in(input_spike[7:0]),
-        .weight(64'h1),
+        .weight(64'hEEEE0000),
         .memb_potential_in(spike_layer_1_potential_reg[0]),
         .threshold(8'h15),
         .leak_value(8'h1),
@@ -31,7 +31,7 @@ module layer_1(
     leaky_integrate_fire uut_leaky_integrate_fire_layer_1_1 (
         .clk(clk), .reset_n(reset_n),
         .spike_in(input_spike[7:0]),
-        .weight(64'h1),
+        .weight(64'hEEEE0000),
         .memb_potential_in(spike_layer_1_potential_reg[1]),
         .threshold(8'h15),
         .leak_value(8'h1),
@@ -43,7 +43,7 @@ module layer_1(
     leaky_integrate_fire uut_leaky_integrate_fire_layer_1_2 (
         .clk(clk), .reset_n(reset_n),
         .spike_in(input_spike[7:0]),
-        .weight(64'h1),
+        .weight(64'hEEEE0000),
         .memb_potential_in(spike_layer_1_potential_reg[2]),
         .threshold(8'h15),
         .leak_value(8'h1),
@@ -55,7 +55,7 @@ module layer_1(
     leaky_integrate_fire uut_leaky_integrate_fire_layer_1_3 (
         .clk(clk), .reset_n(reset_n),
         .spike_in(input_spike[7:0]),
-        .weight(64'h1),
+        .weight(64'hEEEE0000),
         .memb_potential_in(spike_layer_1_potential_reg[3]),
         .threshold(8'h15),
         .leak_value(8'h1),
@@ -67,7 +67,7 @@ module layer_1(
     leaky_integrate_fire uut_leaky_integrate_fire_layer_1_4 (
         .clk(clk), .reset_n(reset_n),
         .spike_in(input_spike[7:0]),
-        .weight(64'h1),
+        .weight(64'hEEEE0000),
         .memb_potential_in(spike_layer_1_potential_reg[4]),
         .threshold(8'h15),
         .leak_value(8'h1),
@@ -79,7 +79,7 @@ module layer_1(
     leaky_integrate_fire uut_leaky_integrate_fire_layer_1_5 (
         .clk(clk), .reset_n(reset_n),
         .spike_in(input_spike[7:0]),
-        .weight(64'h1),
+        .weight(64'hEEEE0000),
         .memb_potential_in(spike_layer_1_potential_reg[5]),
         .threshold(8'h15),
         .leak_value(8'h1),
