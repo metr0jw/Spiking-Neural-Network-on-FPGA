@@ -11,7 +11,7 @@ module tb_controller;
         .output_spike(output_spike)
     );
 
-    always #STEP clk = ~clk;
+    always #(STEP/2) clk = ~clk;
     
     initial
     begin

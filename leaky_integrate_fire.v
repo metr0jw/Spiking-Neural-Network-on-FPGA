@@ -36,9 +36,9 @@ module leaky_integrate_fire
     reg         [3:0]   tr = 0;
     reg         [7:0]   voltage;
 
-    wire        [7:0]   memb_potential_integrate; // integrate membrane potential
-    wire        [7:0]   synaptic_integration;   // integrate synaptic current
-    wire        [7:0]   leak_and_int_potential; // leaked current and integrated potential
+    wire        [15:0]   memb_potential_integrate; // integrate membrane potential
+    wire        [15:0]   synaptic_integration;   // integrate synaptic current
+    wire        [15:0]   leak_and_int_potential; // leaked current and integrated potential
     wire                underflow;
 
     wire        [7:0]   spike_bit_extend[0:7];
@@ -89,17 +89,17 @@ module leaky_integrate_fire
     );
 
     // integrate current
-    cla8_8 uut_cla8_8 (
-        .a(spike_and_weight[0]), .b(spike_and_weight[1]),
-        .c(spike_and_weight[2]), .d(spike_and_weight[3]),
-        .e(spike_and_weight[4]), .f(spike_and_weight[5]),
-        .g(spike_and_weight[6]), .h(spike_and_weight[7]),
-        .ci(1'b0), .co(gnd), .s(memb_potential_integrate)
+    cla16_8 uut_cla16_8 (
+        .a({8'b0, spike_and_weight[0]}), .b({8'b0, spike_and_weight[1]}),
+        .c({8'b0, spike_and_weight[2]}), .d({8'b0, spike_and_weight[3]}),
+        .e({8'b0, spike_and_weight[4]}), .f({8'b0, spike_and_weight[5]}),
+        .g({8'b0, spike_and_weight[6]}), .h({8'b0, spike_and_weight[7]}),
+        .ci(1'b0), .s(memb_potential_integrate), .co(gnd)
     );
 
     // integrate membrane potential and current
-    cla8 uut_cla8 (
-        .a(memb_potential_in), .b(memb_potential_integrate),
+    cla16 uut_cla16 (
+        .a({8'b0, memb_potential_in}), .b(memb_potential_integrate),
         .ci(1'b0), .co(gnd), .s(synaptic_integration)
     );
 
@@ -119,8 +119,8 @@ module leaky_integrate_fire
             // check if in refractory period
             if (tr > 0) begin
                 spike_out <= 1'b0;
-                voltage = 8'b0;
                 tr <= tr - 4'b1;
+                voltage = 8'b0;
             end
             else if (underflow) begin
                 spike_out <= 1'b0;
@@ -128,12 +128,12 @@ module leaky_integrate_fire
             end
             else if (leak_and_int_potential >= threshold) begin   // leak_and_int_potential >= threshold
                 spike_out <= 1'b1;  
-                voltage = 8'b0;
                 tr <= tref;     // refractory period
+                voltage = 8'b0;
             end
             else begin
                 spike_out <= 1'b0;
-                voltage <= leak_and_int_potential;
+                voltage <= leak_and_int_potential[7:0];
             end
         end
     end

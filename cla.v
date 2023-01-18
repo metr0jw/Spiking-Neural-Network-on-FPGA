@@ -30,24 +30,39 @@ module cla8(a, b, ci, s, co);
 	cla4 U1_cla4(.a(a[7:4]), .b(b[7:4]), .ci(c1), .s(s[7:4]), .co(co));
 endmodule
 
-module cla8_8(a, b, c, d, e, f, g, h, ci, s, co);
-    input	[7:0]	a, b, c, d, e, f, g, h;
+module cla16(a, b, ci, s, co);
+	input	[15:0]	a, b;
+	input			ci;
+	output	[15:0]	s;
+	output			co;
+	
+	wire			c1, c2;
+	
+	// 16 Bit CLA implementation using 8-bit CLA
+	cla8 U0_cla8(.a(a[7:0]), .b(b[7:0]), .ci(ci), .s(s[7:0]), .co(c1));
+	cla8 U1_cla8(.a(a[15:8]), .b(b[15:8]), .ci(c1), .s(s[15:8]), .co(co));
+endmodule
+
+module cla16_8(a, b, c, d, e, f, g, h, ci, s, co);
+    input	[15:0]	a, b, c, d, e, f, g, h;
     input			ci;
-    output	[7:0]	s;
+    output	[15:0]	s;
     output			co;
     
     wire	        c1, c2, c3, c4, c5, c6, c7;
-    wire    [7:0]   s1, s2, s3, s4, s5, s6, s7;
+    wire    [15:0]  s1, s2, s3, s4, s5, s6, s7;
 
-    // 8 Bit CLA implementation using 8-bit CLA
-    cla8 U0_cla8(.a(a), .b(b), .ci(ci), .s(s1), .co(c1));
-    cla8 U1_cla8(.a(c), .b(d), .ci(c1), .s(s2), .co(c2));
-    cla8 U2_cla8(.a(e), .b(f), .ci(c2), .s(s3), .co(c3));
-    cla8 U3_cla8(.a(g), .b(h), .ci(c3), .s(s4), .co(c4));
+	// 16 Bit CLA implementation using 16-bit CLAs
+	cla16 U0_cla16(.a(a), .b(b), .ci(ci), .s(s1), .co(c1));
+	cla16 U1_cla16(.a(c), .b(d), .ci(c1), .s(s2), .co(c2));
+	cla16 U2_cla16(.a(e), .b(f), .ci(c2), .s(s3), .co(c3));
+	cla16 U3_cla16(.a(g), .b(h), .ci(c3), .s(s4), .co(c4));
 
-    cla8 U4_cla8(.a(s1), .b(s2), .ci(c4), .s(s5), .co(c5));
-    cla8 U5_cla8(.a(s3), .b(s4), .ci(c5), .s(s6), .co(c6));
-    cla8 U6_cla8(.a(s5), .b(s6), .ci(c6), .s(s7), .co(c7));
+	cla16 U4_cla16(.a(s1), .b(s2), .ci(c4), .s(s5), .co(c5));
+	cla16 U5_cla16(.a(s3), .b(s4), .ci(c5), .s(s6), .co(c6));
+	
+	cla16 U6_cla16(.a(s5), .b(s6), .ci(c6), .s(s7), .co(c7));
 
-    cla8 U7_cla8(.a(s7), .b(8'b0), .ci(c7), .s(s), .co(co));
+	cla16 U7_cla16(.a(s7), .b(16'b0), .ci(c7), .s(s), .co(co));
+
 endmodule
