@@ -42,6 +42,7 @@ module leaky_integrate_fire
     wire                underflow;
 
     wire        [7:0]   spike_bit_extend[0:7];
+    wire        [7:0]   spike_and_weight[0:7];
 
     wire                gnd = 1'b0;
 
@@ -53,12 +54,46 @@ module leaky_integrate_fire
         .y5(spike_bit_extend[4][7:0]), .y6(spike_bit_extend[5][7:0]), .y7(spike_bit_extend[6][7:0]), .y8(spike_bit_extend[7][7:0])
     );
 
+    // multiply spike_in and weight
+    _and2_8bits uut_and2_8bits (
+        .a(spike_bit_extend[0][7:0]), .b(weight[7:0]),
+        .y(spike_and_weight[0][7:0])
+    );
+    _and2_8bits uut_and2_8bits_1 (
+        .a(spike_bit_extend[1][7:0]), .b(weight[15:8]),
+        .y(spike_and_weight[1][7:0])
+    );
+    _and2_8bits uut_and2_8bits_2 (
+        .a(spike_bit_extend[2][7:0]), .b(weight[23:16]),
+        .y(spike_and_weight[2][7:0])
+    );
+    _and2_8bits uut_and2_8bits_3 (
+        .a(spike_bit_extend[3][7:0]), .b(weight[31:24]),
+        .y(spike_and_weight[3][7:0])
+    );
+    _and2_8bits uut_and2_8bits_4 (
+        .a(spike_bit_extend[4][7:0]), .b(weight[39:32]),
+        .y(spike_and_weight[4][7:0])
+    );
+    _and2_8bits uut_and2_8bits_5 (
+        .a(spike_bit_extend[5][7:0]), .b(weight[47:40]),
+        .y(spike_and_weight[5][7:0])
+    );
+    _and2_8bits uut_and2_8bits_6 (
+        .a(spike_bit_extend[6][7:0]), .b(weight[55:48]),
+        .y(spike_and_weight[6][7:0])
+    );
+    _and2_8bits uut_and2_8bits_7 (
+        .a(spike_bit_extend[7][7:0]), .b(weight[63:56]),
+        .y(spike_and_weight[7][7:0])
+    );
+
     // integrate current
     cla8_8 uut_cla8_8 (
-        .a(weight[7:0] & spike_bit_extend[0]), .b(weight[15:8] & spike_bit_extend[1]),
-        .c(weight[23:16] & spike_bit_extend[2]), .d(weight[31:24] & spike_bit_extend[3]),
-        .e(weight[39:32] & spike_bit_extend[4]), .f(weight[47:40] & spike_bit_extend[5]),
-        .g(weight[55:48] & spike_bit_extend[6]), .h(weight[63:56] & spike_bit_extend[7]),
+        .a(spike_and_weight[0]), .b(spike_and_weight[1]),
+        .c(spike_and_weight[2]), .d(spike_and_weight[3]),
+        .e(spike_and_weight[4]), .f(spike_and_weight[5]),
+        .g(spike_and_weight[6]), .h(spike_and_weight[7]),
         .ci(1'b0), .co(gnd), .s(memb_potential_integrate)
     );
 

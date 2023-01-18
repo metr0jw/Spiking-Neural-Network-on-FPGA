@@ -121,6 +121,13 @@ module _xnor2_4bits(a, b, y);
 	_inv_4bits	U1_inv_4bits(.a(w0), .y(y));
 endmodule
 
+module _and2_8bits(a, b, y);
+	input	[7:0]	a, b;	// 8 bit input a, b
+	output	[7:0]	y;			// 8 bit output y
+	
+	assign y = a & b;
+endmodule
+
 module _inv_32bits(a, y);
 	input	[31:0] a;	// 4 bit input a
 	output[31:0] y;		// 4 bit output y
