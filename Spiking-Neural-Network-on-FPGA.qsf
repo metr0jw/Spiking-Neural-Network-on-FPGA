@@ -63,6 +63,11 @@ set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -sectio
 set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH tb_leaky_integrate_fire -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_FILE tb_leaky_integrate_fire.v -section_id tb_leaky_integrate_fire
 set_global_assignment -name VERILOG_INPUT_VERSION VERILOG_2001
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_timing
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_symbol
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_signal_integrity
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_boundary_scan
+set_global_assignment -name VERILOG_FILE bit_extender.v
 set_global_assignment -name VERILOG_FILE clb.v
 set_global_assignment -name VERILOG_FILE cla.v
 set_global_assignment -name VERILOG_FILE fa_v2.v
@@ -70,8 +75,4 @@ set_global_assignment -name VERILOG_FILE gates.v
 set_global_assignment -name VERILOG_FILE addsub.v
 set_global_assignment -name VERILOG_FILE tb_leaky_integrate_fire.v
 set_global_assignment -name VERILOG_FILE leaky_integrate_fire.v
-set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_timing
-set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_symbol
-set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_signal_integrity
-set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST OFF -section_id eda_board_design_boundary_scan
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

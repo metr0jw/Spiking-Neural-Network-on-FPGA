@@ -45,12 +45,20 @@ module leaky_integrate_fire
 
     wire                gnd = 1'b0;
 
+    // bit extend spike_in
+    bit_extender_1to8_8 uut_bit_extender_1to8_8 (
+        .x1(spike_in[0]), .x2(spike_in[1]), .x3(spike_in[2]), .x4(spike_in[3]),
+        .x5(spike_in[4]), .x6(spike_in[5]), .x7(spike_in[6]), .x8(spike_in[7]),
+        .y1(spike_bit_extend[0][7:0]), .y2(spike_bit_extend[1][7:0]), .y3(spike_bit_extend[2][7:0]), .y4(spike_bit_extend[3][7:0]),
+        .y5(spike_bit_extend[4][7:0]), .y6(spike_bit_extend[5][7:0]), .y7(spike_bit_extend[6][7:0]), .y8(spike_bit_extend[7][7:0])
+    );
+
     // integrate current
     cla8_8 uut_cla8_8 (
-        .a(weight[7:0] & {{7{spike_in[0]}}, spike_in[0]}), .b(weight[15:8] & {{7{spike_in[1]}}, spike_in[1]}),
-        .c(weight[23:16] & {{7{spike_in[2]}}, spike_in[2]}), .d(weight[31:24] & {{7{spike_in[3]}}, spike_in[3]}),
-        .e(weight[39:32] & {{7{spike_in[4]}}, spike_in[4]}), .f(weight[47:40] & {{7{spike_in[5]}}, spike_in[5]}),
-        .g(weight[55:48] & {{7{spike_in[6]}}, spike_in[6]}), .h(weight[63:56] & {{7{spike_in[7]}}, spike_in[7]}),
+        .a(weight[7:0] & spike_bit_extend[0]), .b(weight[15:8] & spike_bit_extend[1]),
+        .c(weight[23:16] & spike_bit_extend[2]), .d(weight[31:24] & spike_bit_extend[3]),
+        .e(weight[39:32] & spike_bit_extend[4]), .f(weight[47:40] & spike_bit_extend[5]),
+        .g(weight[55:48] & spike_bit_extend[6]), .h(weight[63:56] & spike_bit_extend[7]),
         .ci(1'b0), .co(gnd), .s(memb_potential_integrate)
     );
 
