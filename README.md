@@ -13,11 +13,11 @@ $ git clone https://github.com/metr0jw/Spiking-Neural-Network-on-FPGA.git
 ### 4. Download the bitstream to FPGA
 ### 5. Not Implemented yet
 ## Contribute
-### 1. Fork it (
-### 2. Create your feature branch (
-### 3. Commit your changes (
-### 4. Push to the branch (
-### 5. Create a new Pull Request (
+### 1. Fork it
+### 2. Create your feature branch
+### 3. Commit your changes
+### 4. Push to the branch
+### 5. Create a new Pull Request
 ## License
 [GNU General Public License v3.0](LICENSE)
 

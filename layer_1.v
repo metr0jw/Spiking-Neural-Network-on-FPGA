@@ -1,17 +1,14 @@
 module layer_1(
-    clk, reset_n,
-    input_spike,
-    output_spike
-    );
-    input               clk, reset_n;
-    input       [7:0]   input_spike;
-
-    output      [7:0]   output_spike;
-
-    parameter           NUM_NEURONS = 8;
+    input           clk,
+    input           reset_n,
+    input   [7:0]   input_spike,
+    output  [7:0]   output_spike
+);
+    parameter                       NUM_NEURONS = 8;
 
     reg         [NUM_NEURONS-1:0]   spike_layer_1_potential_reg[NUM_NEURONS-1:0];
     wire        [NUM_NEURONS-1:0]   spike_layer_1_potential[NUM_NEURONS-1:0];
+
 
     // Instantiate the neurons
     // Layer 1: 8 neurons

@@ -1,12 +1,10 @@
 module controller(
-    clk, reset_n,
-    input_spike,
-    output_spike
+    input           clk,
+    input           reset_n,
+    input   [7:0]   input_spike,
+    output  [7:0]   output_spike
 );
-    input           clk, reset_n;
-    input   [7:0]   input_spike;
-
-    output  [7:0]   output_spike;
+    
 
     wire    [7:0]   output_spike_layer_0;
 

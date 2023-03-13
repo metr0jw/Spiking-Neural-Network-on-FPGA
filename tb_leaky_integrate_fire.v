@@ -1,7 +1,7 @@
 `timescale 1ns / 100ps
-
 module tb_leaky_integrate_fire;
-    reg             clk, reset_n;
+    reg             clk;
+    reg             reset_n;
     reg             spike_in_0, spike_in_1, spike_in_2, spike_in_3, spike_in_4, spike_in_5, spike_in_6, spike_in_7;
     reg     [7:0]   weight_0, weight_1, weight_2, weight_3, weight_4, weight_5, weight_6, weight_7;
     reg     [7:0]   memb_potential_in;
@@ -14,6 +14,7 @@ module tb_leaky_integrate_fire;
 
     parameter STEP = 10;
 
+
     leaky_integrate_fire uut (
         .clk(clk), .reset_n(reset_n),
         .spike_in({spike_in_7, spike_in_6, spike_in_5, spike_in_4, spike_in_3, spike_in_2, spike_in_1, spike_in_0}),
@@ -24,6 +25,8 @@ module tb_leaky_integrate_fire;
 
     always #(STEP/2) clk = ~clk;
     initial begin
+        $dumpfile("tb_leaky_integrate_fire.vcd");
+        $dumpvars(0, tb_leaky_integrate_fire);
         clk = 1'b0; reset_n = 1'b1; #1;
         reset_n = 1'b0; #1; reset_n = 1'b1; #1;
         memb_potential_in = 8'h00; threshold = 8'h10; leak_value = 8'h1; tref = 4'h2;
@@ -70,20 +73,14 @@ module tb_leaky_integrate_fire;
         memb_potential_in = memb_potential_out; #STEP
 
         // Test 3
-        memb_potential_in = memb_potential_out; spike_in_0 = 1'b0; spike_in_1 = 1'b0; spike_in_2 = 1'b0; spike_in_3 = 1'b0; spike_in_4 = 1'b0; spike_in_5 = 1'b0; spike_in_6 = 1'b0; spike_in_7 = 1'b1; #STEP
-        memb_potential_in = memb_potential_out; spike_in_0 = 1'b0; spike_in_1 = 1'b0; spike_in_2 = 1'b0; spike_in_3 = 1'b0; spike_in_4 = 1'b0; spike_in_5 = 1'b0; spike_in_6 = 1'b0; spike_in_7 = 1'b0; #STEP
-        memb_potential_in = memb_potential_out;
-        spike_in_0 = 1'b0; spike_in_1 = 1'b0; spike_in_2 = 1'b0; spike_in_3 = 1'b0; spike_in_4 = 1'b0; spike_in_5 = 1'b0; spike_in_6 = 1'b0; spike_in_7 = 1'b0; #STEP
-        memb_potential_in = memb_potential_out;
-        spike_in_0 = 1'b0; spike_in_1 = 1'b0; spike_in_2 = 1'b0; spike_in_3 = 1'b0; spike_in_4 = 1'b0; spike_in_5 = 1'b0; spike_in_6 = 1'b0; spike_in_7 = 1'b0; #STEP
-        memb_potential_in = memb_potential_out;
-        spike_in_0 = 1'b0; spike_in_1 = 1'b0; spike_in_2 = 1'b0; spike_in_3 = 1'b0; spike_in_4 = 1'b0; spike_in_5 = 1'b0; spike_in_6 = 1'b0; spike_in_7 = 1'b0; #STEP
-        memb_potential_in = memb_potential_out;
-        spike_in_0 = 1'b0; spike_in_1 = 1'b0; spike_in_2 = 1'b0; spike_in_3 = 1'b0; spike_in_4 = 1'b0; spike_in_5 = 1'b0; spike_in_6 = 1'b0; spike_in_7 = 1'b0; #STEP
-        memb_potential_in = memb_potential_out;
-        spike_in_0 = 1'b0; spike_in_1 = 1'b0; spike_in_2 = 1'b0; spike_in_3 = 1'b0; spike_in_4 = 1'b0; spike_in_5 = 1'b0; spike_in_6 = 1'b0; spike_in_7 = 1'b0; #STEP
-        memb_potential_in = memb_potential_out;
-        spike_in_0 = 1'b0; spike_in_1 = 1'b0; spike_in_2 = 1'b0; spike_in_3 = 1'b0; spike_in_4 = 1'b0; spike_in_5 = 1'b0; spike_in_6 = 1'b0; spike_in_7 = 1'b0; #STEP
+        memb_potential_in = memb_potential_out; spike_in_0 = 1'b0; spike_in_1 = 1'b0; spike_in_2 = 1'b0; spike_in_3 = 1'b0; spike_in_4 = 1'b0; spike_in_5 = 1'b1; spike_in_6 = 1'b1; spike_in_7 = 1'b1; #STEP
+        memb_potential_in = memb_potential_out; spike_in_0 = 1'b0; spike_in_1 = 1'b0; spike_in_2 = 1'b0; spike_in_3 = 1'b0; spike_in_4 = 1'b0; spike_in_5 = 1'b1; spike_in_6 = 1'b1; spike_in_7 = 1'b1; #STEP
+        memb_potential_in = memb_potential_out; spike_in_0 = 1'b0; spike_in_1 = 1'b0; spike_in_2 = 1'b0; spike_in_3 = 1'b0; spike_in_4 = 1'b0; spike_in_5 = 1'b1; spike_in_6 = 1'b1; spike_in_7 = 1'b1; #STEP
+        memb_potential_in = memb_potential_out; spike_in_0 = 1'b0; spike_in_1 = 1'b0; spike_in_2 = 1'b0; spike_in_3 = 1'b0; spike_in_4 = 1'b0; spike_in_5 = 1'b1; spike_in_6 = 1'b1; spike_in_7 = 1'b1; #STEP
+        memb_potential_in = memb_potential_out; spike_in_0 = 1'b0; spike_in_1 = 1'b0; spike_in_2 = 1'b0; spike_in_3 = 1'b0; spike_in_4 = 1'b0; spike_in_5 = 1'b1; spike_in_6 = 1'b1; spike_in_7 = 1'b1; #STEP
+        memb_potential_in = memb_potential_out; spike_in_0 = 1'b0; spike_in_1 = 1'b0; spike_in_2 = 1'b0; spike_in_3 = 1'b0; spike_in_4 = 1'b0; spike_in_5 = 1'b1; spike_in_6 = 1'b1; spike_in_7 = 1'b1; #STEP
+        memb_potential_in = memb_potential_out; spike_in_0 = 1'b0; spike_in_1 = 1'b0; spike_in_2 = 1'b0; spike_in_3 = 1'b0; spike_in_4 = 1'b0; spike_in_5 = 1'b1; spike_in_6 = 1'b1; spike_in_7 = 1'b1; #STEP
+        memb_potential_in = memb_potential_out; spike_in_0 = 1'b0; spike_in_1 = 1'b0; spike_in_2 = 1'b0; spike_in_3 = 1'b0; spike_in_4 = 1'b0; spike_in_5 = 1'b1; spike_in_6 = 1'b1; spike_in_7 = 1'b1; #STEP
         memb_potential_in = memb_potential_out; #STEP
 
         $finish;

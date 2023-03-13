@@ -7,3 +7,9 @@ output_files/
 
 # simulation files
 simulation/
+
+# log files
+c5_pin_dump.txt
+
+# temporary files
+temp/

@@ -7,5 +7,5 @@ module addsub
 );
 
 	assign result = (add_sub == 1) ? dataa + datab :
-					dataa - datab;
+									 dataa - datab;
 endmodule
