@@ -6,8 +6,7 @@
 ## Description
 This project is a Spiking Neural Network(SNN) implementation on FPGA. The SNN is composed of 3 layers: input, hidden, and output. The input layer is composed of 784 neurons, the hidden layer is composed of 100 neurons, and the output layer is composed of 10 neurons. The input layer is connected to the hidden layer, and the hidden layer is connected to the output layer.
 
-## To-DO
-- [ ] Weight(Series) multiplication
+## To-Do
 - [ ] Implement Spike Timing Dependent Plasticity for weight update
 - [ ] Implement inhibitory neuron
 - [ ] Weight loading from file

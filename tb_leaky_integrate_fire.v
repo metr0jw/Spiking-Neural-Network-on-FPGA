@@ -1,4 +1,5 @@
 `timescale 1ns / 100ps
+`include "leaky_integrate_fire.v"
 module tb_leaky_integrate_fire;
     reg             clk;
     reg             reset_n;
