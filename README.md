@@ -28,7 +28,7 @@ $ git clone https://github.com/metr0jw/Spiking-Neural-Network-on-FPGA.git
 ### 5. Create a new Pull Request
 
 ## License
-[GNU General Public License v3.0](LICENSE)
+[MIT License](LICENSE)
 
 ## Author
 [Jiwoon Lee](https://github.com/metr0jw)
