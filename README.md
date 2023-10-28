@@ -2,6 +2,8 @@
 ## Development environment
 - Intel Quartus Prime Lite 18.1
 - Cyclone V: 5CSXFC6D6F31C6
+- Environment will be changed to Vivado or Vitis
+- Artix 7 xc7a35t fgg484-2
 
 ## Description
 This project is a Spiking Neural Network(SNN) implementation on FPGA. The SNN is composed of 3 layers: input, hidden, and output. The input layer is composed of 784 neurons, the hidden layer is composed of 100 neurons, and the output layer is composed of 10 neurons. The input layer is connected to the hidden layer, and the hidden layer is connected to the output layer.
