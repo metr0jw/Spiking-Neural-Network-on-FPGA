@@ -1,17 +1,33 @@
-# database
-db/
-incremental_db/
+# Build outputs [[8]]
+build/
+*.bit
+*.ltx
+*.hwh
+!overlays/*/*.bit
+!overlays/*/*.hwh
 
-# compiled files
-output_files/
+# Vivado generated
+*.cache/
+*.hw/
+*.ip_user_files/
+*.runs/
+*.sim/
+*.xpr
+*.jou
+*.log
+*.str
 
-# simulation files
-simulation/
-*.o
-*.vcd
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.egg-info/
+dist/
 
-# log files
-c5_pin_dump.txt
+# OS files
+.DS_Store
+Thumbs.db
 
-# temporary files
-temp/
+# IDE
+.vscode/
+.idea/
