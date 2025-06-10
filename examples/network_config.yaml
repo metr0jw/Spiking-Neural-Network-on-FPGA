@@ -1,0 +1,17 @@
+network:
+  topology: feedforward
+  layer_sizes: [784, 128, 64, 10]
+  
+neurons:
+  leak_rate: 10
+  refractory_period: 20
+  threshold: 1000
+  
+connections:
+  weight_init: uniform
+  weight_range: [1, 10]
+  delay_range: [1, 5]
+  
+simulation:
+  duration: 1.0
+  timestep: 0.001

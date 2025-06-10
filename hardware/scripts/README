@@ -1,0 +1,25 @@
+1. Make the shell script executable:
+```bash
+chmod +x hardware/scripts/run_all.sh
+```
+
+2. Run the complete build:
+```bash
+cd hardware/scripts
+./run_all.sh
+```
+
+3. Run individual steps:
+```bash
+# Create project only
+vivado -mode batch -source create_project.tcl
+
+# Build bitstream only
+vivado -mode batch -source build_bitstream.tcl
+
+# Package as IP
+vivado -mode batch -source package_ip.tcl
+
+# Program board
+vivado -mode batch -source program_board.tcl
+```

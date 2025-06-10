@@ -1,0 +1,20 @@
+How to Run
+1. Make the script executable
+```bash
+chmod +x hardware/hdl/sim/run_sim.sh
+```
+
+2. Run simulators
+```bash
+# Run default testbench
+./run_sim.sh
+
+# Run specific testbench in GUI mode
+./run_sim.sh -t tb_lif_neuron -g
+
+# Clean and run with waveforms
+./run_sim.sh -c -w
+
+# Run with coverage
+./run_sim.sh -t tb_top -cov
+```
