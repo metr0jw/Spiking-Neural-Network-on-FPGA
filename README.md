@@ -4,12 +4,20 @@
 - PYNQ-Z2 (Xilinx Zynq-7000)
 
 ## Description
+Voltage-based neuron models
 To-be-filled
 
 ## To-Do
-- [ ] Implement Spike Timing Dependent Plasticity for weight update
-- [ ] Implement inhibitory neuron
-- [ ] Weight loading from file
+- [x] Implement excitatory neuron
+- [x] Implement inhibitory neuron
+- [x] Implement Spike Timing Dependent Plasticity for weight update (w/o eligibility trace)
+- [ ] Implement interface to communicate with PC (Linux)
+- [ ] Make testbenches for neuron core
+- [ ] Make testbenches for interfaces
+- [ ] Weight loading from files (PyTorch)
+- [ ] PyTorch inference example
+- [ ] PyTorch train example
+- [ ] To-be-filled
 
 ## How to use
 ### NOT IMPLEMENTED YET
